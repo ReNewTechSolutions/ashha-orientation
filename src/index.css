@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --as-red: #9C1C1C;
+  --grey: #2a2b2e;
+  --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+  background: radial-gradient(
+      1000px 400px at 10% 0%,
+      rgba(156, 28, 28, 0.06),
+      transparent 60%
+    ),
+    #2a2b2e; /* matte dark gray base */
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.panel {
+  background: rgba(43, 43, 46, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  padding: 28px;
+  animation: fadeUp 0.6s both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1, h2, h3 {
+  color: #fff;
+  margin-top: 0;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--as-red);
+  color: #fff;
+}
+
+.btn-ghost {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #eee;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--as-red);
+  transition: width 0.5s ease;
+}
+
+.scrollbox {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 10px;
+  border-left: 3px solid var(--as-red);
+  margin-bottom: 10px;
+}
+
+.scrollbox ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* Slide transition animations */
+.slide-panel {
+  transition: transform 0.25s cubic-bezier(.51,1.3,.5,1), opacity 0.25s cubic-bezier(.51,1.3,.5,1);
+  will-change: transform, opacity;
+}
+
+.slide-in-right {
+  transform: translateX(60px);
+  opacity: 0;
+  animation: slideInRight 0.25s forwards;
+}
+
+.slide-in-left {
+  transform: translateX(-60px);
+  opacity: 0;
+  animation: slideInLeft 0.25s forwards;
+}
+
+.slide-out-left {
+  transform: translateX(-60px);
+  opacity: 0;
+}
+
+.slide-out-right {
+  transform: translateX(60px);
+  opacity: 0;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
