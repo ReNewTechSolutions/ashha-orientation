@@ -37,11 +37,25 @@ Tech Stack
 | Deployment | Vercel |
 | Integration | Webflow (iframe embed) |
 
----
+Project Structure
 
-Getting Started
+ashha-orientation/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── CodeOfEthics.jsx
+│   │   ├── PolicyAcknowledgment.jsx
+│   │   ├── EmergencyAcknowledgment.jsx
+│   │   ├── ReportingAcknowledgment.jsx
+│   ├── Orientation.jsx
+│   ├── index.css
+│   ├── main.jsx
+├── index.html
+├── package.json
+└── README.md
 
-1️⃣ Clone the repo
-bash
-git clone https://github.com/ReNewTechSolutions/ashha-orientation.git
-cd ashha-orientation
+License
+
+© 2025 ReNewTech Solutions LLC.
+All Rights Reserved.
+This project was developed for All Services Home Healthcare under contract and is not licensed for resale or redistribution.
