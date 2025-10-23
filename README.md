@@ -1,16 +1,61 @@
-# React + Vite
+# ashha-orientation
+# 🏥 All Services Home Healthcare – Interactive Orientation Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive, animated employee orientation and compliance training portal built for **All Services Home Healthcare**.  
+Developed by **ReNewTech Solutions**.
 
-Currently, two official plugins are available:
+This project provides an engaging, LMS-style onboarding experience that combines text, animation, and interactive acknowledgment forms — fully embeddable inside **Webflow** or deployable as a standalone app via **Vercel**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Animated Welcome & Section Slides using [LottieFiles](https://lottiefiles.com)
+- Progressive Orientation Flow – Employees advance through slides and complete acknowledgment steps
+- Acknowledgment Components for:
+  - Code of Ethics
+  - Policy & Procedures
+  - Emergency Preparedness
+  - Reporting Protocols
+  - Client Rights
+-  Final Quiz & Completion Check**
+-  Framer Motion Animations** – Smooth fade and slide transitions
+-  Local Progress Persistence** – Saves user’s current slide in localStorage
+-  Matte Gray Theming** – Modern, soft-dark aesthetic for readability
+- ♿ Accessibility Ready** – Screen-reader and keyboard friendly design
+-  Webflow Embeddable** – Deploy as an iframe directly inside any Webflow page
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| Frontend | React + Vite |
+| Animations | Framer Motion + Lottie Player |
+| Styling | Custom CSS (Matte Gray Theme) |
+| Deployment | Vercel |
+| Integration | Webflow (iframe embed) |
+
+Project Structure
+
+ashha-orientation/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── CodeOfEthics.jsx
+│   │   ├── PolicyAcknowledgment.jsx
+│   │   ├── EmergencyAcknowledgment.jsx
+│   │   ├── ReportingAcknowledgment.jsx
+│   ├── Orientation.jsx
+│   ├── index.css
+│   ├── main.jsx
+├── index.html
+├── package.json
+└── README.md
+
+License
+
+© 2025 ReNewTech Solutions LLC.
+All Rights Reserved.
+This project was developed for All Services Home Healthcare under contract and is not licensed for resale or redistribution.
