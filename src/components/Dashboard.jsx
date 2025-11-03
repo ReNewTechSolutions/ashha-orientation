@@ -66,14 +66,14 @@ export default function Dashboard() {
         case "orientation":
           navigate("/orientation/overview");
           break;
-        case "pca":
-          navigate("/orientation/ethics");
-          break;
         case "annual":
           navigate("/orientation/final-quiz");
           break;
+        case "pca":
+          navigate("/orientation/overview");
+          break;
         case "apc":
-          navigate("/orientation/policy");
+          navigate("/orientation/overview");
           break;
         default:
           navigate("/orientation/overview");
