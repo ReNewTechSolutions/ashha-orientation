@@ -1,3 +1,4 @@
+// ✅ src/components/ReportingAcknowledgment.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaVolumeUp } from "react-icons/fa";
@@ -11,49 +12,27 @@ export default function ReportingAcknowledgment({ ack, setAck }) {
 
   const slides = [
     {
-      key: "incident",
-      title: "Incident Reporting Procedures",
-      text: `Reporting incidents promptly and accurately is essential for client safety and compliance.  
-
-When an incident occurs:
-• Ensure the client is safe first.  
-• Notify your supervisor immediately.  
-• Complete an Incident Report Form within 24 hours.  
-• Include dates, times, locations, and all relevant details.  
-• Do not alter or falsify documentation under any circumstances.`,
-      lottie:
-        "https://lottie.host/embed/3ad2d84b-46f4-411f-b019-24564bc16e14/DP63sHT8tD.lottie",
+      key: "intro",
+      title: "Incident & Abuse Reporting Overview",
+      text: `As a caregiver, you are legally and ethically required to report all incidents of suspected abuse, neglect, or exploitation immediately.`,
+      lottie: "https://lottie.host/embed/3ad2d84b-46f4-411f-b019-24564bc16e14/DP63sHT8tD.lottie",
     },
     {
-      key: "abuse",
-      title: "Reporting Abuse, Neglect, or Exploitation",
-      text: `All Services Home Healthcare requires every employee to report suspected abuse or neglect immediately.  
-
-Examples include:
-• Physical, emotional, or sexual abuse  
-• Neglect of essential care needs (food, hygiene, safety)  
-• Financial exploitation or theft  
-• Intimidation or humiliation  
-
-Steps to report:
-• Ensure client safety first.  
-• Notify your supervisor immediately.  
-• If urgent, call 911 or Adult Protective Services.  
-• Complete the required written report as soon as possible.`,
-      lottie:
-        "https://lottie.host/embed/28440bfc-3003-463a-886f-4a9f2421cc56/rZODaZmLqK.lottie",
+      key: "steps",
+      title: "How to Report",
+      text: `1. Ensure the client’s safety first.\n2. Notify your supervisor immediately.\n3. Complete an incident report form as soon as possible.\n4. If the incident involves abuse, neglect, or exploitation — call the state abuse hotline and law enforcement if necessary.`,
+      lottie: "https://lottie.host/embed/28440bfc-3003-463a-886f-4a9f2421cc56/rZODaZmLqK.lottie",
     },
     {
       key: "ack",
       title: "Acknowledgment & Completion",
-      text: `I understand that I am required to report all incidents, accidents, or suspected abuse immediately and truthfully in accordance with ASHH policy.`,
-      lottie:
-        "https://lottie.host/embed/dc496536-a187-4dad-a492-a69f993c5a5f/10YZDRwMKx.lottie",
+      text: `I acknowledge that I understand my responsibility to report all incidents, accidents, abuse, neglect, and unsafe conditions promptly and truthfully.`,
+      lottie: "https://lottie.host/embed/dc496536-a187-4dad-a492-a69f993c5a5f/10YZDRwMKx.lottie",
     },
   ];
 
-  const isAckSlide = slide === slides.length - 1;
   const current = slides[slide];
+  const isAckSlide = slide === slides.length - 1;
   const { isSpeaking, toggleSpeak } = useSpeechReader(current.text);
 
   useEffect(() => {
@@ -71,9 +50,9 @@ Steps to report:
         {!isAckSlide ? (
           <motion.div
             key={current.key}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -25 }}
             transition={{ duration: 0.5 }}
           >
             <div className="reader-control">
@@ -119,14 +98,14 @@ Steps to report:
             <h2 className="reporting-title">Acknowledge & Continue</h2>
             <div className="reporting-lottie">
               <iframe
-                src={slides[slides.length - 1].lottie}
+                src={current.lottie}
                 title="acknowledge"
                 frameBorder="0"
                 allowFullScreen
               ></iframe>
             </div>
 
-            <p className="ack-intro">{slides[slides.length - 1].text}</p>
+            <p className="ack-intro">{current.text}</p>
 
             <label className="reporting-acknowledge">
               <input
@@ -135,7 +114,7 @@ Steps to report:
                 onChange={(e) => setAck(e.target.checked)}
               />
               <span>
-                I acknowledge and understand my duty to report incidents and abuse immediately.
+                I acknowledge that I have reviewed and understand the reporting policies.
               </span>
             </label>
 

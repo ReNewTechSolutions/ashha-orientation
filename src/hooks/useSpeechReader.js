@@ -1,47 +1,116 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-export default function useSpeechReader(initialText = "", autoStop = true) {
-  const [text, setText] = useState(initialText);
+export default function useSpeechReader() {
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [hasFinished, setHasFinished] = useState(true);
+  const [hasFinished, setHasFinished] = useState(false);
+  const [text, setText] = useState("");
+  const [autoReadEnabled, setAutoReadEnabled] = useState(
+    localStorage.getItem("ashh-autoSpeech") === "true"
+  );
 
-  const synthRef = useRef(window.speechSynthesis);
-  const utteranceRef = useRef(null);
+  // === Toggle Auto Narration Mode ===
+  const toggleAutoRead = useCallback(() => {
+    const newValue = !autoReadEnabled;
+    setAutoReadEnabled(newValue);
+    if (newValue) {
+      localStorage.setItem("ashh-autoSpeech", "true");
+    } else {
+      localStorage.removeItem("ashh-autoSpeech");
+      window.speechSynthesis.cancel();
+    }
+  }, [autoReadEnabled]);
 
-  const toggleSpeak = () => {
-    const synth = synthRef.current;
+  // === Cancel any existing speech ===
+  const cancelSpeech = useCallback(() => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  }, []);
 
-    if (synth.speaking) {
-      synth.cancel();
+  // === Core toggle function ===
+  const toggleSpeak = useCallback(() => {
+    if (!text) return;
+
+    // Cancel existing
+    window.speechSynthesis.cancel();
+
+    // If currently speaking — stop
+    if (isSpeaking) {
       setIsSpeaking(false);
       setHasFinished(true);
       return;
     }
 
-    if (!text) return;
+    try {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.volume = 1;
 
-    utteranceRef.current = new SpeechSynthesisUtterance(text);
-    utteranceRef.current.lang = "en-US";
-    utteranceRef.current.rate = 1;
-    utteranceRef.current.pitch = 1;
-    setHasFinished(false);
+      utterance.onstart = () => {
+        setIsSpeaking(true);
+        setHasFinished(false);
+      };
 
-    utteranceRef.current.onstart = () => setIsSpeaking(true);
-    utteranceRef.current.onend = () => {
+      utterance.onend = () => {
+        setIsSpeaking(false);
+        setHasFinished(true);
+      };
+
+      window.speechSynthesis.speak(utterance);
+
+      // Once user triggers narration manually, enable auto mode
+      if (!autoReadEnabled) {
+        setAutoReadEnabled(true);
+        localStorage.setItem("ashh-autoSpeech", "true");
+      }
+    } catch (err) {
+      console.warn("Speech synthesis error:", err);
       setIsSpeaking(false);
-      setHasFinished(true);
-    };
+    }
+  }, [text, isSpeaking, autoReadEnabled]);
 
-    synth.speak(utteranceRef.current);
-  };
+  // === Auto-read new text after approval ===
+  useEffect(() => {
+    if (!text) return;
+    if (autoReadEnabled && !isSpeaking) {
+      const timeout = setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.volume = 1;
 
+        utterance.onend = () => {
+          setIsSpeaking(false);
+          setHasFinished(true);
+        };
+
+        try {
+          window.speechSynthesis.speak(utterance);
+          setIsSpeaking(true);
+          setHasFinished(false);
+        } catch (err) {
+          console.warn("Auto speech blocked:", err);
+        }
+      }, 800); // slight delay to allow slide animation
+      return () => clearTimeout(timeout);
+    }
+  }, [text, autoReadEnabled]);
+
+  // === Stop speaking when component unmounts ===
   useEffect(() => {
     return () => {
-      if (autoStop && synthRef.current.speaking) {
-        synthRef.current.cancel();
-      }
+      window.speechSynthesis.cancel();
     };
-  }, [autoStop]);
+  }, []);
 
-  return { isSpeaking, hasFinished, toggleSpeak, setText };
+  // ✅ Include everything you need here
+  return {
+    isSpeaking,
+    hasFinished,
+    toggleSpeak,
+    setText,
+    cancelSpeech,
+    autoReadEnabled,
+    toggleAutoRead, // 👈 add this line
+  };
 }

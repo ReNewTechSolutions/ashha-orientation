@@ -1,0 +1,37 @@
+/* ✅ Floating toggle base */
+.speech-toggle-floating {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(25, 25, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  
+  /* 🕹️ Scroll hide/show behavior */
+  .speech-toggle-floating.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+  
+  .speech-toggle-floating.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .speech-toggle-floating input {
+    accent-color: #ff7a70;
+    transform: scale(1.2);
+    cursor: pointer;
+  }

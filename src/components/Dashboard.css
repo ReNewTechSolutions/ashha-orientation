@@ -172,3 +172,21 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.speech-toggle {
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.speech-toggle input {
+  accent-color: #ff7a70;
+  transform: scale(1.2);
+  cursor: pointer;
+}

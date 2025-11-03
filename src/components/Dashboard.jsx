@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import useSpeechReader from "../hooks/useSpeechReader";
 import "./Dashboard.css";
 
 export default function Dashboard() {
   console.log("✅ Dashboard component rendered");
   const navigate = useNavigate();
+  const { autoReadEnabled, toggleAutoRead } = useSpeechReader();
 
   const [modules, setModules] = useState([
     {
@@ -61,30 +63,25 @@ export default function Dashboard() {
     setOverallProgress(total / modules.length);
   }, [modules]);
 
-  // ✅ Navigation handler with debug logs
+  // ✅ Navigation handler
   const handleStart = (key) => {
     console.log("🧭 handleStart called with key:", key);
 
     try {
       switch (key) {
         case "orientation":
-          console.log("➡️ Navigating to /orientation/overview");
           navigate("/orientation/overview");
           break;
         case "pca":
-          console.log("➡️ Navigating to /orientation/ethics");
           navigate("/orientation/ethics");
           break;
         case "annual":
-          console.log("➡️ Navigating to /quiz");
           navigate("/quiz");
           break;
         case "apc":
-          console.log("➡️ Navigating to /orientation/policy");
           navigate("/orientation/policy");
           break;
         default:
-          console.log("➡️ Navigating to /orientation (default)");
           navigate("/orientation");
       }
     } catch (err) {
@@ -100,10 +97,6 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-container">
-      <h2 style={{ color: "white", textAlign: "center" }}>
-        🔍 Debug Mode Active — Open Console
-      </h2>
-
       {/* === Header === */}
       <motion.header
         className="dashboard-hero"
@@ -118,6 +111,18 @@ export default function Dashboard() {
           Empowering caregivers through continuous learning and compassionate
           excellence.
         </p>
+
+        {/* === Narration Toggle === */}
+        <div className="speech-toggle">
+          <label>
+            <input
+              type="checkbox"
+              checked={autoReadEnabled}
+              onChange={toggleAutoRead}
+            />
+            Auto Narration {autoReadEnabled ? "On" : "Off"}
+          </label>
+        </div>
       </motion.header>
 
       {/* === Progress Summary === */}
@@ -160,7 +165,6 @@ export default function Dashboard() {
                 className="btn-primary"
                 onClick={(e) => {
                   e.stopPropagation();
-                  console.log("🖱️ Button clicked for:", m.key);
                   handleStart(m.key);
                 }}
                 disabled={m.progress === 100}

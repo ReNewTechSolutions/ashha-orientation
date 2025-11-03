@@ -122,7 +122,7 @@ export default function ClientRightsAcknowledgment({ ack, setAck }) {
               <button
                 className="btn-primary"
                 disabled={!ack}
-                onClick={() => navigate("/orientation")}
+                onClick={() => navigate("/orientation/overview")}
               >
                 Return to Overview →
               </button>

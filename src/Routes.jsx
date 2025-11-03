@@ -2,7 +2,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// ✅ Corrected imports based on your folder structure
+// === Core Pages ===
 import Dashboard from "./components/Dashboard.jsx";
 import OrientationOverview from "./components/OrientationOverview.jsx";
 import Orientation from "./Orientation.jsx";
@@ -21,10 +21,11 @@ export default function AppRoutes() {
       {/* === Orientation Flow === */}
       <Route path="/orientation/*" element={<Orientation />} />
 
-      {/* === Final Quiz === */}
+      {/* === Final Quiz (standalone + inside orientation flow) === */}
       <Route path="/quiz" element={<FinalQuiz />} />
+      <Route path="/orientation/quiz" element={<FinalQuiz />} />
 
-      {/* === Catch-All / 404 Page === */}
+      {/* === Fallback / 404 Page === */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -74,10 +74,7 @@ export default function CodeOfEthics({ ack, setAck }) {
 
             <div className="module-nav">
               {slide > 0 ? (
-                <button
-                  className="btn-ghost"
-                  onClick={() => setSlide(slide - 1)}
-                >
+                <button className="btn-ghost" onClick={() => setSlide(slide - 1)}>
                   ← Back
                 </button>
               ) : (
@@ -120,22 +117,15 @@ export default function CodeOfEthics({ ack, setAck }) {
                 onChange={(e) => setAck(e.target.checked)}
               />
               <span>
-                I acknowledge and agree to uphold these ethical standards in my
-                work.
+                I acknowledge and agree to uphold these ethical standards in my work.
               </span>
             </label>
 
             <div className="module-nav ack-actions">
-              <button
-                className="btn-ghost"
-                onClick={() => setSlide(slide - 1)}
-              >
+              <button className="btn-ghost" onClick={() => setSlide(slide - 1)}>
                 ← Back
               </button>
-              <button
-                className="btn-return"
-                onClick={() => navigate("/orientation/overview")}
-              >
+              <button className="btn-return" onClick={() => navigate("/orientation/overview")}>
                 ← Return to Overview
               </button>
             </div>
