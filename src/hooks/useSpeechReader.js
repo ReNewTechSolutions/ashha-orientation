@@ -1,67 +1,34 @@
 // ✅ src/hooks/useSpeechReader.js
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function useSpeechReader() {
+export default function useSpeechReader(text) {
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [text, setText] = useState("");
-  const [voices, setVoices] = useState([]);
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
+  const utteranceRef = useRef(null);
 
-  // Load voices and unlock audio
   useEffect(() => {
-    const loadVoices = () => {
-      const available = window.speechSynthesis.getVoices();
-      if (available.length) {
-        setVoices(available);
-      }
-    };
-
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-
-    const unlockAudio = () => {
-      if (audioUnlocked) return;
-      window.speechSynthesis.resume();
-      const utter = new SpeechSynthesisUtterance("Narration ready");
-      const voice =
-        window.speechSynthesis
-          .getVoices()
-          .find((v) => v.name.includes("Google US English")) ||
-        window.speechSynthesis.getVoices()[0];
-      utter.voice = voice;
-      utter.onend = () => setAudioUnlocked(true);
-      window.speechSynthesis.speak(utter);
-    };
-
-    document.addEventListener("click", unlockAudio, { once: true });
+    // Cancel any ongoing speech when text changes or unmounts
     return () => {
-      document.removeEventListener("click", unlockAudio);
-      window.speechSynthesis.onvoiceschanged = null;
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     };
-  }, [audioUnlocked]);
+  }, [text]);
 
-  const toggleSpeak = useCallback(() => {
-    if (!text) return;
-    if (!audioUnlocked) return alert("Tap once to enable narration.");
-
+  const toggleSpeak = () => {
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
-      return;
+    } else if (text && text.trim()) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.05;
+      utterance.pitch = 1;
+      utterance.lang = "en-US";
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      utteranceRef.current = utterance;
+      window.speechSynthesis.speak(utterance);
+      setIsSpeaking(true);
     }
+  };
 
-    const utter = new SpeechSynthesisUtterance(text);
-    const voice =
-      voices.find((v) => v.name.includes("Google US English")) ||
-      voices.find((v) => /en/i.test(v.lang)) ||
-      voices[0];
-    utter.voice = voice;
-    utter.onstart = () => setIsSpeaking(true);
-    utter.onend = () => setIsSpeaking(false);
-
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utter);
-  }, [text, isSpeaking, voices, audioUnlocked]);
-
-  return { isSpeaking, toggleSpeak, setText };
+  return { isSpeaking, toggleSpeak };
 }

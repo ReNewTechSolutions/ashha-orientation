@@ -8,6 +8,7 @@ import CodeOfEthics from "./components/CodeOfEthics.jsx";
 import PolicyAcknowledgment from "./components/PolicyAcknowledgment.jsx";
 import EmergencyProcedures from "./components/EmergencyProcedures.jsx";
 import ReportingAcknowledgment from "./components/ReportingAcknowledgment.jsx";
+import ClientRightsAcknowledgment from "./components/ClientRightsAcknowledgment.jsx";
 import FinalQuiz from "./components/FinalQuiz.jsx";
 import OrientationComplete from "./components/OrientationComplete.jsx";
 
@@ -24,6 +25,7 @@ export default function Orientation() {
       localStorage.removeItem("ackPolicies");
       localStorage.removeItem("ackEmergency");
       localStorage.removeItem("ackReporting");
+      localStorage.removeItem("ackClientRights");
       sessionStorage.setItem("firstVisit", "true");
     }
   }, []);
@@ -35,6 +37,7 @@ export default function Orientation() {
     policies: localStorage.getItem("ackPolicies") === "true",
     emergency: localStorage.getItem("ackEmergency") === "true",
     reporting: localStorage.getItem("ackReporting") === "true",
+    clientRights: localStorage.getItem("ackClientRights") === "true",
   });
 
   // === Update and persist acknowledgments ===
@@ -94,7 +97,17 @@ export default function Orientation() {
       ),
     },
     {
-      key: "quiz",
+      key: "client-rights",
+      path: "client-rights",
+      component: (
+        <ClientRightsAcknowledgment
+          ack={ack.clientRights}
+          setAck={(v) => updateAck("clientRights", v)}
+        />
+      ),
+    },
+    {
+      key: "final-quiz",
       path: "final-quiz",
       component: <FinalQuiz />,
     },
@@ -108,14 +121,16 @@ export default function Orientation() {
   // === Track Current Step ===
   const [currentStep, setCurrentStep] = useState(0);
 
-  // === Restore last visited module (demo-safe) ===
+  // === Restore last visited module (only when landing on /orientation) ===
   useEffect(() => {
-    const lastVisited = localStorage.getItem("orientation-last");
-    const validPaths = steps.map((s) => `/orientation/${s.path}`);
-    if (lastVisited && validPaths.includes(lastVisited)) {
-      navigate(lastVisited, { replace: true });
-    } else {
-      navigate("/orientation/welcome", { replace: true });
+    if (location.pathname === "/orientation" || location.pathname === "/orientation/") {
+      const lastVisited = localStorage.getItem("orientation-last");
+      const validPaths = steps.map((s) => `/orientation/${s.path}`);
+      if (lastVisited && validPaths.includes(lastVisited)) {
+        navigate(lastVisited, { replace: true });
+      } else {
+        navigate("/orientation/welcome", { replace: true });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

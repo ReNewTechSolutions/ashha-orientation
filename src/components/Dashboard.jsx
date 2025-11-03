@@ -11,24 +11,28 @@ export default function Dashboard() {
       key: "orientation",
       title: "Orientation Training",
       desc: "Agency mission, ethics, policies, and safety procedures.",
+      path: "/orientation/overview",
       progress: 0,
     },
     {
       key: "pca",
       title: "PCA Training Part 1",
       desc: "Core caregiver competencies & client care fundamentals.",
+      path: "/pca/overview",
       progress: 0,
     },
     {
       key: "annual",
       title: "Annual Training",
       desc: "Yearly refreshers & compliance updates.",
+      path: "/annual/overview",
       progress: 0,
     },
     {
       key: "apc",
       title: "APC Training",
       desc: "Advanced personal care instruction and specialized techniques.",
+      path: "/apc/overview",
       progress: 0,
     },
   ]);
@@ -59,31 +63,21 @@ export default function Dashboard() {
     setOverallProgress(total / modules.length);
   }, [modules]);
 
-  // ✅ Navigation handler
+  // ✅ Dynamic navigation
   const handleStart = (key) => {
     try {
-      switch (key) {
-        case "orientation":
-          navigate("/orientation/overview");
-          break;
-        case "annual":
-          navigate("/orientation/final-quiz");
-          break;
-        case "pca":
-          navigate("/orientation/overview");
-          break;
-        case "apc":
-          navigate("/orientation/overview");
-          break;
-        default:
-          navigate("/orientation/overview");
+      const selectedModule = modules.find((m) => m.key === key);
+      if (selectedModule?.path) {
+        navigate(selectedModule.path);
+      } else {
+        console.warn(`⚠️ No path found for module key: ${key}`);
       }
     } catch (err) {
       console.error("❌ Navigation error:", err);
     }
   };
 
-  // ✅ Add dark background
+  // ✅ Dark background
   useEffect(() => {
     document.body.classList.add("dashboard-bg");
     return () => document.body.classList.remove("dashboard-bg");
@@ -91,7 +85,6 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-container">
-      {/* === Header === */}
       <motion.header
         className="dashboard-hero"
         initial={{ opacity: 0, y: -20 }}
@@ -107,7 +100,6 @@ export default function Dashboard() {
         </p>
       </motion.header>
 
-      {/* === Progress Summary === */}
       <section className="dashboard-progress glass-panel">
         <div className="progress-header">
           <span>Overall Progress</span>
@@ -122,7 +114,6 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* === Modules === */}
       <section className="dashboard-modules glass-panel">
         <h2>Available Training Programs</h2>
         <div className="modules-grid">
