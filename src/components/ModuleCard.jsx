@@ -1,20 +1,9 @@
-// src/components/ModuleCard.jsx
+// ✅ src/components/ModuleCard.jsx (clean version, no speech reader)
 import React from "react";
 import { motion } from "framer-motion";
-import { FaVolumeUp } from "react-icons/fa";
-import useSpeechReader from "../hooks/useSpeechReader";
 import "./ModuleCard.css";
 
-export default function ModuleCard({
-  title,
-  description,
-  icon,
-  accent,
-  onClick,
-}) {
-  const textToRead = `${title}. ${description}`;
-  const { isSpeaking, toggleSpeak } = useSpeechReader(textToRead);
-
+export default function ModuleCard({ title, description, icon, accent, onClick }) {
   return (
     <motion.div
       className="module-card"
@@ -39,18 +28,6 @@ export default function ModuleCard({
       <div className="module-icon">{icon}</div>
       <h3 className="module-title">{title}</h3>
       <p className="module-desc">{description}</p>
-
-      {/* Reader Button */}
-      <button
-        className={`reader-btn ${isSpeaking ? "active" : ""}`}
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleSpeak();
-        }}
-        aria-label={`Read ${title} module aloud`}
-      >
-        <FaVolumeUp />
-      </button>
 
       {/* Subtle animated accent ring */}
       <motion.div

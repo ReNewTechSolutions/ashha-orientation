@@ -1,7 +1,11 @@
 /* === Policy Acknowledgment Styling === */
 
-.policy-container {
-  background: radial-gradient(circle at 50% 20%, rgba(156, 28, 28, 0.25), rgba(15, 15, 15, 0.95) 70%),
+.module-container {
+  background: radial-gradient(
+      circle at 50% 20%,
+      rgba(156, 28, 28, 0.25),
+      rgba(15, 15, 15, 0.95) 70%
+    ),
     linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
@@ -10,13 +14,13 @@
   margin: 60px auto;
   color: #f2f2f2;
   position: relative;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(255, 90, 95, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 90, 95, 0.1);
   overflow: hidden;
+  text-align: center;
 }
 
-.policy-title {
-  text-align: center;
+/* === Title === */
+.module-title {
   font-size: 1.8rem;
   font-weight: 600;
   background: linear-gradient(90deg, #ff7a70, #9c1c1c);
@@ -27,58 +31,56 @@
 }
 
 /* === Lottie === */
-.policy-lottie {
+.module-lottie-centered {
   width: 240px;
   height: 240px;
   margin: 0 auto 20px;
 }
-.policy-lottie iframe {
+
+.module-lottie-centered iframe {
   width: 100%;
   height: 100%;
   border: none;
   border-radius: 12px;
 }
 
-/* === Text === */
-.policy-text {
-  font-size: 1rem;
-  line-height: 1.7;
-  text-align: center;
-  color: #ddd;
+/* === Text List === */
+.module-list {
+  text-align: left;
+  list-style: none;
   max-width: 720px;
   margin: 0 auto 24px;
+  padding: 0;
 }
 
-/* === Reader Button === */
-.reader-control {
+.module-list li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ddd;
+  margin-bottom: 12px;
+}
+
+/* === Acknowledgment === */
+.module-acknowledge {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.reader-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 1rem;
   color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: left;
+}
+
+.module-acknowledge input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #ff7a70;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.reader-btn.active {
-  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
-  box-shadow: 0 0 10px rgba(255, 120, 110, 0.4);
-}
-
-/* === Nav Buttons === */
-.policy-nav {
+/* === Navigation === */
+.module-nav {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +90,8 @@
 }
 
 .btn-primary,
-.btn-ghost {
+.btn-ghost,
+.btn-return {
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 600;
@@ -96,6 +99,7 @@
   transition: all 0.3s ease;
 }
 
+/* === Primary Button === */
 .btn-primary {
   background: linear-gradient(90deg, #9c1c1c, #ff7a70);
   border: none;
@@ -107,6 +111,7 @@
   box-shadow: 0 4px 12px rgba(255, 100, 90, 0.4);
 }
 
+/* === Ghost Button === */
 .btn-ghost {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -117,45 +122,39 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* === Acknowledgment === */
-.policy-acknowledge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-  font-size: 1rem;
+/* === Return Button === */
+.btn-return {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-.policy-acknowledge input[type="checkbox"] {
-  width: 22px;
-  height: 22px;
-  accent-color: #ff7a70;
-  cursor: pointer;
+.btn-return:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* === Mobile === */
 @media (max-width: 768px) {
-  .policy-container {
+  .module-container {
     padding: 30px 20px;
   }
 
-  .policy-title {
+  .module-title {
     font-size: 1.5rem;
   }
 
-  .policy-text {
+  .module-list li {
     font-size: 0.95rem;
   }
 
-  .policy-nav {
+  .module-nav {
     flex-direction: column;
     gap: 14px;
   }
 
   .btn-primary,
-  .btn-ghost {
+  .btn-ghost,
+  .btn-return {
     width: 100%;
   }
 }

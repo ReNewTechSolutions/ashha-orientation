@@ -39,6 +39,13 @@ export default function ReportingAcknowledgment({ ack, setAck }) {
     window.scrollTo({ top: 120, behavior: "smooth" });
   }, [slide]);
 
+  const handleReturn = () => {
+    // ✅ Return user to the Orientation Overview
+    setAck(true);
+    localStorage.setItem("ackReporting", "true");
+    navigate("/orientation/overview");
+  };
+
   return (
     <motion.div
       className="reporting-container"
@@ -96,6 +103,7 @@ export default function ReportingAcknowledgment({ ack, setAck }) {
         ) : (
           <motion.div key="ack" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <h2 className="reporting-title">Acknowledge & Continue</h2>
+
             <div className="reporting-lottie">
               <iframe
                 src={current.lottie}
@@ -125,7 +133,7 @@ export default function ReportingAcknowledgment({ ack, setAck }) {
               <button
                 className="btn-primary"
                 disabled={!ack}
-                onClick={() => navigate("/orientation/overview")}
+                onClick={handleReturn}
               >
                 Return to Overview →
               </button>

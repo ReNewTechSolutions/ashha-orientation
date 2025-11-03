@@ -1,0 +1,83 @@
+/* === 404 Page Styling === */
+
+.notfound-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+      circle at 25% 25%,
+      rgba(156, 28, 28, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.notfound-card {
+  background: rgba(25, 25, 25, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 700px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(255, 90, 95, 0.15);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.notfound-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  text-shadow: 0 0 12px rgba(255, 100, 95, 0.25);
+}
+
+.notfound-text {
+  color: #ddd;
+  opacity: 0.9;
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+}
+
+/* === Buttons === */
+.btn-primary {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 100, 90, 0.35);
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .notfound-title {
+    font-size: 1.6rem;
+  }
+
+  .notfound-card {
+    padding: 30px 20px;
+  }
+
+  .notfound-text {
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}

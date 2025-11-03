@@ -1,4 +1,4 @@
-/* === Cinematic Module Card (Final Lightweight Version) === */
+/* === Cinematic Module Card (Lightweight + No Narration) === */
 .module-card {
   position: relative;
   display: flex;
@@ -79,34 +79,6 @@
   line-height: 1.6;
 }
 
-/* === Reader Button === */
-.reader-btn {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 5;
-  transition: all 0.25s ease;
-}
-
-.reader-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.reader-btn.active {
-  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
-  box-shadow: 0 0 12px rgba(255, 100, 90, 0.4);
-}
-
 /* === Inner Accent Glow === */
 .module-glow {
   position: absolute;
@@ -150,17 +122,11 @@
 }
 
 @keyframes moduleCompletePulse {
-  0% {
+  0%, 50%, 100% {
     transform: scale(1);
   }
   25% {
     transform: scale(1.03);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
   }
 }
 
@@ -209,10 +175,5 @@
   .module-desc {
     font-size: 0.9rem;
     max-width: 220px;
-  }
-
-  .reader-btn {
-    width: 36px;
-    height: 36px;
   }
 }

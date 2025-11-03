@@ -1,5 +1,5 @@
 // ✅ src/components/ClientRightsAcknowledgment.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,18 @@ import "./ModuleBase.css";
 export default function ClientRightsAcknowledgment({ ack, setAck }) {
   const navigate = useNavigate();
   const [slide, setSlide] = useState(0);
+
+  // ✅ Load acknowledgment state from localStorage
+  useEffect(() => {
+    const savedAck = localStorage.getItem("ackClientRights");
+    if (savedAck === "true") setAck(true);
+  }, []);
+
+  // ✅ Save acknowledgment and navigate back
+  const handleReturn = () => {
+    localStorage.setItem("ackClientRights", "true");
+    navigate("/orientation/overview");
+  };
 
   const slides = [
     {
@@ -37,14 +49,19 @@ export default function ClientRightsAcknowledgment({ ack, setAck }) {
   const isAckSlide = slide === slides.length;
 
   return (
-    <motion.div className="module-container module-fade-bg">
+    <motion.div
+      className="module-container module-fade-bg"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <AnimatePresence mode="wait">
         {!isAckSlide ? (
           <motion.div
             key={slides[slide].key}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5 }}
           >
             <h2 className="module-title">{slides[slide].title}</h2>
@@ -85,7 +102,7 @@ export default function ClientRightsAcknowledgment({ ack, setAck }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="ack-lottie">
+            <div className="ack-lottie fade-in">
               <DotLottieReact
                 src="https://lottie.host/f9d3b6e5-47f0-4e1e-a5d2-5c72c8f35e53/RptRkAqE9H.lottie"
                 loop
@@ -103,7 +120,7 @@ export default function ClientRightsAcknowledgment({ ack, setAck }) {
             <label className="module-acknowledge">
               <input
                 type="checkbox"
-                checked={ack}
+                checked={ack || false}
                 onChange={(e) => setAck(e.target.checked)}
               />
               <span>
@@ -122,7 +139,7 @@ export default function ClientRightsAcknowledgment({ ack, setAck }) {
               <button
                 className="btn-primary"
                 disabled={!ack}
-                onClick={() => navigate("/orientation/overview")}
+                onClick={handleReturn}
               >
                 Return to Overview →
               </button>

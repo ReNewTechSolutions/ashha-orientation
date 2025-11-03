@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import useSpeechReader from "../hooks/useSpeechReader";
+import { useNavigate } from "react-router-dom";
 import "./FinalQuiz.css";
 
 const quizQuestions = [
@@ -223,11 +223,10 @@ export default function FinalQuiz() {
   const [incorrectIndexes, setIncorrectIndexes] = useState([]);
   const [showCelebration, setShowCelebration] = useState(false);
   const [fadeOutCelebration, setFadeOutCelebration] = useState(false);
+  const navigate = useNavigate();
 
   const numAnswered = answers.filter((a) => a !== -1).length;
   const progress = (numAnswered / quizQuestions.length) * 100;
-  const questionText = quizQuestions.map((q) => q.q).join(" ");
-  const { isSpeaking, toggleSpeak } = useSpeechReader(questionText, true);
 
   const handleOptionSelect = (qIdx, oIdx) => {
     const next = [...answers];
@@ -246,11 +245,11 @@ export default function FinalQuiz() {
 
     if (incorrect.length === 0) {
       setShowCelebration(true);
-      setTimeout(() => setFadeOutCelebration(true), 5000);
+      setTimeout(() => setFadeOutCelebration(true), 4000);
       setTimeout(() => {
         localStorage.setItem("ackQuiz", "true");
-        window.location.href = "/dashboard";
-      }, 6500);
+        navigate("/orientation/overview");
+      }, 6000);
     }
   };
 
@@ -280,12 +279,6 @@ export default function FinalQuiz() {
           />
         </div>
         <h2>Final Orientation Quiz</h2>
-        <button
-          className={`reader-btn ${isSpeaking ? "active" : ""}`}
-          onClick={toggleSpeak}
-        >
-          🔈
-        </button>
       </div>
 
       <div className="quiz-progress">
@@ -370,9 +363,9 @@ export default function FinalQuiz() {
                 <br />
                 <button
                   className="btn-primary"
-                  onClick={() => (window.location.href = "/dashboard")}
+                  onClick={() => navigate("/orientation/overview")}
                 >
-                  Return to Dashboard →
+                  Return to Overview →
                 </button>
               </div>
             )}

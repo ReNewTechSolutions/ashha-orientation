@@ -1,9 +1,7 @@
 // ✅ src/components/EmergencyProcedures.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaVolumeUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import useSpeechReader from "../hooks/useSpeechReader";
 import "./EmergencyProcedures.css";
 
 export default function EmergencyProcedures({ ack, setAck }) {
@@ -104,11 +102,16 @@ export default function EmergencyProcedures({ ack, setAck }) {
 
   const isAckSlide = slide === slides.length - 1;
   const current = slides[slide];
-  const { isSpeaking, toggleSpeak } = useSpeechReader(current?.text || "");
 
   useEffect(() => {
     window.scrollTo({ top: 150, behavior: "smooth" });
   }, [slide]);
+
+  // ✅ Restore saved acknowledgment
+  useEffect(() => {
+    const savedAck = localStorage.getItem("ackEmergency");
+    if (savedAck === "true") setAck(true);
+  }, [setAck]);
 
   return (
     <motion.div
@@ -126,16 +129,7 @@ export default function EmergencyProcedures({ ack, setAck }) {
             exit={{ opacity: 0, y: -25 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="reader-control">
-              <h2 className="emergency-title">{current.title}</h2>
-              <button
-                className={`reader-btn ${isSpeaking ? "active" : ""}`}
-                onClick={toggleSpeak}
-                aria-label="Read text aloud"
-              >
-                <FaVolumeUp />
-              </button>
-            </div>
+            <h2 className="emergency-title">{current.title}</h2>
 
             <div className="emergency-lottie">
               <iframe
@@ -210,7 +204,10 @@ export default function EmergencyProcedures({ ack, setAck }) {
               <button
                 className="btn-primary"
                 disabled={!ack}
-                onClick={() => navigate("/orientation/overview")}
+                onClick={() => {
+                  localStorage.setItem("ackEmergency", "true");
+                  navigate("/orientation/overview");
+                }}
               >
                 Return to Overview →
               </button>

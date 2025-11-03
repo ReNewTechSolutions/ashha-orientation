@@ -8,6 +8,8 @@ import "./WelcomeSlide.css";
 export default function WelcomeSlide({ ack, setAck }) {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
+  const { isSpeaking, toggleSpeak } = useSpeechReader();
+
   const slides = [
     {
       key: "founded",
@@ -30,12 +32,10 @@ export default function WelcomeSlide({ ack, setAck }) {
   ];
 
   const current = slides[step];
-  const { isSpeaking, toggleSpeak, setText } = useSpeechReader();
 
   useEffect(() => {
-    setText(current.text);
     window.scrollTo({ top: 100, behavior: "smooth" });
-  }, [step, current.text, setText]);
+  }, [step]);
 
   const handleNext = () => {
     if (step < slides.length - 1) {
@@ -43,12 +43,16 @@ export default function WelcomeSlide({ ack, setAck }) {
     } else {
       setAck(true);
       localStorage.setItem("ackWelcome", "true");
-      navigate("/orientation/overview");
+      navigate("/orientation/overview", { replace: true });
     }
   };
 
   const handleBack = () => {
     if (step > 0) setStep(step - 1);
+  };
+
+  const handleSpeak = () => {
+    toggleSpeak(current.text);
   };
 
   return (
@@ -80,7 +84,7 @@ export default function WelcomeSlide({ ack, setAck }) {
               <h2 className="welcome-title">{current.title}</h2>
               <button
                 className={`reader-btn ${isSpeaking ? "active" : ""}`}
-                onClick={toggleSpeak}
+                onClick={handleSpeak}
                 aria-label="Read text aloud"
               >
                 <FaVolumeUp />
@@ -111,7 +115,7 @@ export default function WelcomeSlide({ ack, setAck }) {
               </button>
               <button
                 className="btn-return"
-                onClick={() => navigate("/orientation/overview")}
+                onClick={() => navigate("/orientation/overview", { replace: true })}
               >
                 ← Return to Overview
               </button>
