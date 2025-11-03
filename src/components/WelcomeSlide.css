@@ -16,12 +16,12 @@
   align-items: center;
   justify-content: center;
   max-width: 780px;
-  background: rgba(25, 25, 25, 0.85);
+  background: rgba(25, 25, 25, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 40px 30px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   transition: all 0.3s ease;
 }
 
@@ -31,9 +31,11 @@
   height: 260px;
   margin: 0 auto 25px;
 }
-
-.welcome-lottie canvas {
+.welcome-lottie iframe {
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
+  border: none;
 }
 
 /* === Title + Reader === */
@@ -44,7 +46,6 @@
   gap: 14px;
   margin-bottom: 14px;
 }
-
 .welcome-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -62,6 +63,7 @@
   max-width: 650px;
   margin: 0 auto 20px;
   opacity: 0.95;
+  white-space: pre-line;
 }
 
 /* === Reader Button === */
@@ -78,7 +80,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .reader-btn.active {
   background: linear-gradient(90deg, #9c1c1c, #ff7a70);
   box-shadow: 0 0 10px rgba(255, 120, 110, 0.4);
@@ -93,7 +94,6 @@
   margin-top: 25px;
   flex-wrap: wrap;
 }
-
 .btn-primary,
 .btn-ghost,
 .btn-return {
@@ -104,43 +104,37 @@
   transition: all 0.3s ease;
 }
 
-/* Red gradient main */
+/* Primary */
 .btn-primary {
   background: linear-gradient(90deg, #9c1c1c, #ff7a70);
   border: none;
   color: #fff;
 }
-
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 100, 90, 0.4);
 }
-
-/* Disabled state */
 .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
-/* Ghost + Return styles */
+/* Ghost */
 .btn-ghost {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
 }
-
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* Return */
 .btn-return {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
 }
-
 .btn-return:hover {
   background: rgba(255, 255, 255, 0.15);
 }
@@ -150,20 +144,16 @@
   .welcome-card {
     padding: 28px 20px;
   }
-
   .welcome-title {
     font-size: 1.5rem;
   }
-
   .welcome-text {
     font-size: 0.98rem;
   }
-
   .welcome-nav {
     flex-direction: column;
     gap: 14px;
   }
-
   .btn-primary,
   .btn-ghost,
   .btn-return {

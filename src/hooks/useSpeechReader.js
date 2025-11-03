@@ -4,113 +4,152 @@ export default function useSpeechReader() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
   const [text, setText] = useState("");
+  const [voices, setVoices] = useState([]);
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [autoReadEnabled, setAutoReadEnabled] = useState(
     localStorage.getItem("ashh-autoSpeech") === "true"
   );
 
-  // === Toggle Auto Narration Mode ===
-  const toggleAutoRead = useCallback(() => {
-    const newValue = !autoReadEnabled;
-    setAutoReadEnabled(newValue);
-    if (newValue) {
-      localStorage.setItem("ashh-autoSpeech", "true");
-    } else {
-      localStorage.removeItem("ashh-autoSpeech");
-      window.speechSynthesis.cancel();
-    }
-  }, [autoReadEnabled]);
+  useEffect(() => {
+    console.log("🪶 Step 1: useEffect -> Load voices triggered");
+    let tries = 0;
 
-  // === Cancel any existing speech ===
+    const loadVoices = () => {
+      const available = window.speechSynthesis.getVoices();
+      console.log("🪶 Step 1a: Voices available =", available.length);
+      if (available.length > 0) {
+        const preferred = available.filter((v) =>
+          /(en[-_]US|English)/i.test(v.lang)
+        );
+        console.log("✅ Voices loaded:", preferred.map((v) => v.name));
+        setVoices(preferred.length ? preferred : available);
+        clearInterval(voiceRetry);
+      } else {
+        tries++;
+        if (tries > 10) console.warn("⚠️ Voices not ready — retrying...");
+      }
+    };
+
+    loadVoices();
+    const voiceRetry = setInterval(loadVoices, 500);
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    const unlockAudio = () => {
+      console.log("🪶 Step 2: unlockAudio called by user");
+      try {
+        window.speechSynthesis.resume();
+
+        // ✅ Wait until voices are available before attempting warm-up
+        const waitForVoices = () => {
+          const available = window.speechSynthesis.getVoices();
+          if (!available.length) {
+            console.warn("⚠️ Voices not ready, waiting...");
+            setTimeout(waitForVoices, 300);
+            return;
+          }
+
+          const preferredVoice =
+            available.find((v) => v.name.includes("Google US English")) ||
+            available.find((v) => v.name.includes("Samantha")) ||
+            available.find((v) => /en/i.test(v.lang)) ||
+            available[0];
+
+          const warmUp = new SpeechSynthesisUtterance(
+            "Audio narration is now ready. You can click the speaker icon to begin narration."
+          );
+          warmUp.voice = preferredVoice;
+          warmUp.volume = 1;
+          warmUp.rate = 1;
+          warmUp.pitch = 1;
+
+          warmUp.onstart = () =>
+            console.log("🔊 Warm-up STARTED with", preferredVoice.name);
+          warmUp.onend = () => {
+            console.log("✅ Warm-up ENDED — Audio unlocked");
+            setAudioUnlocked(true);
+          };
+          warmUp.onerror = (err) => console.error("❌ Warm-up error:", err);
+
+          window.speechSynthesis.cancel(); // clear pending queue
+          window.speechSynthesis.speak(warmUp);
+        };
+
+        waitForVoices();
+      } catch (err) {
+        console.warn("❌ Unlock failed:", err);
+      }
+    };
+
+    document.addEventListener("click", unlockAudio, { once: true });
+    document.addEventListener("keydown", unlockAudio, { once: true });
+    document.addEventListener("touchstart", unlockAudio, { once: true });
+
+    return () => {
+      clearInterval(voiceRetry);
+      window.speechSynthesis.onvoiceschanged = null;
+      document.removeEventListener("click", unlockAudio);
+      document.removeEventListener("keydown", unlockAudio);
+      document.removeEventListener("touchstart", unlockAudio);
+    };
+  }, []);
+
   const cancelSpeech = useCallback(() => {
+    console.log("🪶 Step 3: cancelSpeech called");
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
   }, []);
 
-  // === Core toggle function ===
   const toggleSpeak = useCallback(() => {
-    if (!text) return;
+    console.log("🪶 Step 4: toggleSpeak called, unlocked =", audioUnlocked);
+    if (!text) {
+      console.warn("⚠️ No text to speak");
+      return;
+    }
+    if (!audioUnlocked) {
+      console.warn("🚫 Audio not unlocked yet");
+      return;
+    }
 
-    // Cancel existing
-    window.speechSynthesis.cancel();
-
-    // If currently speaking — stop
     if (isSpeaking) {
-      setIsSpeaking(false);
+      cancelSpeech();
       setHasFinished(true);
       return;
     }
 
     try {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1;
-      utterance.pitch = 1;
-      utterance.volume = 1;
+      const utter = new SpeechSynthesisUtterance(text);
+      const googleVoice =
+        voices.find((v) => v.name.includes("Google US English")) ||
+        voices.find((v) => v.name.includes("Samantha")) ||
+        voices.find((v) => /en/i.test(v.lang)) ||
+        voices[0];
+      utter.voice = googleVoice;
+      console.log("🪶 Step 5: Using voice =", utter.voice?.name);
 
-      utterance.onstart = () => {
+      utter.onstart = () => {
+        console.log("🎙️ Speech started");
         setIsSpeaking(true);
         setHasFinished(false);
       };
-
-      utterance.onend = () => {
+      utter.onend = () => {
+        console.log("✅ Speech ended normally");
         setIsSpeaking(false);
         setHasFinished(true);
       };
+      utter.onerror = (err) => {
+        console.error("❌ Speech synthesis error event:", err);
+      };
 
-      window.speechSynthesis.speak(utterance);
-
-      // Once user triggers narration manually, enable auto mode
-      if (!autoReadEnabled) {
-        setAutoReadEnabled(true);
-        localStorage.setItem("ashh-autoSpeech", "true");
-      }
+      window.speechSynthesis.cancel();
+      setTimeout(() => {
+        console.log("🪶 Step 6: Speaking now...");
+        window.speechSynthesis.speak(utter);
+      }, 250);
     } catch (err) {
-      console.warn("Speech synthesis error:", err);
+      console.error("❌ toggleSpeak failed:", err);
       setIsSpeaking(false);
     }
-  }, [text, isSpeaking, autoReadEnabled]);
+  }, [text, voices, isSpeaking, cancelSpeech, audioUnlocked]);
 
-  // === Auto-read new text after approval ===
-  useEffect(() => {
-    if (!text) return;
-    if (autoReadEnabled && !isSpeaking) {
-      const timeout = setTimeout(() => {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-
-        utterance.onend = () => {
-          setIsSpeaking(false);
-          setHasFinished(true);
-        };
-
-        try {
-          window.speechSynthesis.speak(utterance);
-          setIsSpeaking(true);
-          setHasFinished(false);
-        } catch (err) {
-          console.warn("Auto speech blocked:", err);
-        }
-      }, 800); // slight delay to allow slide animation
-      return () => clearTimeout(timeout);
-    }
-  }, [text, autoReadEnabled]);
-
-  // === Stop speaking when component unmounts ===
-  useEffect(() => {
-    return () => {
-      window.speechSynthesis.cancel();
-    };
-  }, []);
-
-  // ✅ Include everything you need here
-  return {
-    isSpeaking,
-    hasFinished,
-    toggleSpeak,
-    setText,
-    cancelSpeech,
-    autoReadEnabled,
-    toggleAutoRead, // 👈 add this line
-  };
+  return { isSpeaking, hasFinished, toggleSpeak, setText, cancelSpeech };
 }

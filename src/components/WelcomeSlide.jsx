@@ -1,4 +1,3 @@
-// ✅ src/components/WelcomeSlide.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaVolumeUp } from "react-icons/fa";
@@ -9,7 +8,6 @@ import "./WelcomeSlide.css";
 export default function WelcomeSlide({ ack, setAck }) {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
-
   const slides = [
     {
       key: "founded",
@@ -32,11 +30,12 @@ export default function WelcomeSlide({ ack, setAck }) {
   ];
 
   const current = slides[step];
-  const { isSpeaking, toggleSpeak } = useSpeechReader(current.text);
+  const { isSpeaking, toggleSpeak, setText } = useSpeechReader();
 
   useEffect(() => {
+    setText(current.text);
     window.scrollTo({ top: 100, behavior: "smooth" });
-  }, [step]);
+  }, [step, current.text, setText]);
 
   const handleNext = () => {
     if (step < slides.length - 1) {
@@ -44,7 +43,7 @@ export default function WelcomeSlide({ ack, setAck }) {
     } else {
       setAck(true);
       localStorage.setItem("ackWelcome", "true");
-      navigate("/orientation");
+      navigate("/orientation/overview");
     }
   };
 

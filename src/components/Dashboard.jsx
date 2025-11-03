@@ -82,7 +82,7 @@ export default function Dashboard() {
           navigate("/orientation/policy");
           break;
         default:
-          navigate("/orientation");
+          navigate("/orientation/overview");
       }
     } catch (err) {
       console.error("❌ Navigation error:", err);
