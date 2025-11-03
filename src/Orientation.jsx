@@ -1,3 +1,4 @@
+// ✅ src/Orientation.jsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
@@ -7,13 +8,14 @@ import CodeOfEthics from "./components/CodeOfEthics.jsx";
 import PolicyAcknowledgment from "./components/PolicyAcknowledgment.jsx";
 import EmergencyProcedures from "./components/EmergencyProcedures.jsx";
 import ReportingAcknowledgment from "./components/ReportingAcknowledgment.jsx";
+import FinalQuiz from "./components/FinalQuiz.jsx";
 import OrientationComplete from "./components/OrientationComplete.jsx";
 
 export default function Orientation() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // === Reset acknowledgments on first session visit (for demo/testing) ===
+  // === Reset acknowledgments on first session visit (demo only) ===
   useEffect(() => {
     const firstLoad = sessionStorage.getItem("firstVisit");
     if (!firstLoad) {
@@ -26,7 +28,7 @@ export default function Orientation() {
     }
   }, []);
 
-  // === Track acknowledgment states ===
+  // === Acknowledgment state ===
   const [ack, setAck] = useState({
     welcome: localStorage.getItem("ackWelcome") === "true",
     ethics: localStorage.getItem("ackEthics") === "true",
@@ -45,16 +47,13 @@ export default function Orientation() {
     );
   };
 
-  // === Define orientation training steps ===
+  // === Orientation Steps (Flow Order) ===
   const steps = [
     {
       key: "welcome",
       path: "welcome",
       component: (
-        <WelcomeSlide
-          ack={ack.welcome}
-          setAck={(v) => updateAck("welcome", v)}
-        />
+        <WelcomeSlide ack={ack.welcome} setAck={(v) => updateAck("welcome", v)} />
       ),
     },
     {
@@ -95,15 +94,21 @@ export default function Orientation() {
       ),
     },
     {
+      key: "quiz",
+      path: "final-quiz",
+      component: <FinalQuiz />,
+    },
+    {
       key: "complete",
       path: "complete",
       component: <OrientationComplete />,
     },
   ];
 
+  // === Track Current Step ===
   const [currentStep, setCurrentStep] = useState(0);
 
-  // === Restore last visited module (only once, safe) ===
+  // === Restore last visited module (demo-safe) ===
   useEffect(() => {
     const lastVisited = localStorage.getItem("orientation-last");
     const validPaths = steps.map((s) => `/orientation/${s.path}`);
@@ -115,14 +120,14 @@ export default function Orientation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // === Save current location to localStorage ===
+  // === Save location for resume ===
   useEffect(() => {
     if (location.pathname.startsWith("/orientation")) {
       localStorage.setItem("orientation-last", location.pathname);
     }
   }, [location.pathname]);
 
-  // === Track which step is active ===
+  // === Update progress bar step ===
   useEffect(() => {
     const index = steps.findIndex((s) => location.pathname.includes(s.key));
     setCurrentStep(index >= 0 ? index : 0);
@@ -149,7 +154,6 @@ export default function Orientation() {
 
       {/* === Routes === */}
       <Routes>
-        {/* ✅ Default redirect so /orientation shows something */}
         <Route index element={<Navigate to="welcome" replace />} />
         {steps.map((step) => (
           <Route key={step.key} path={step.path} element={step.component} />
