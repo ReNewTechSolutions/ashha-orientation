@@ -1,43 +1,150 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-
+/* === Global Variables === */
 :root {
-  --as-red: #9C1C1C;
-  --grey: #2a2b2e;
-  --glass: rgba(255, 255, 255, 0.05);
+  --as-red: #9c1c1c;
+  --as-red-light: #ff7a70;
+  --as-accent: linear-gradient(90deg, var(--as-red), var(--as-red-light));
+  --as-bg-dark: #0f0f0f;
+  --as-bg-panel: rgba(25, 25, 26, 0.85);
+  --as-border: rgba(255, 255, 255, 0.1);
+  --as-text: #f0f0f0;
+  --as-muted: #cccccc;
+  --as-success: #8aff9d;
+  --as-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-body {
+/* === Reset === */
+* {
   margin: 0;
-  font-family: "Inter", sans-serif;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   background: radial-gradient(
-      1000px 400px at 10% 0%,
-      rgba(156, 28, 28, 0.06),
-      transparent 60%
+      circle at 25% 20%,
+      rgba(156, 28, 28, 0.1),
+      transparent 70%
     ),
-    #2a2b2e; /* matte dark gray base */
+    var(--as-bg-dark);
+  color: var(--as-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background-attachment: fixed;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px;
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--as-accent);
+  border-radius: 10px;
 }
 
-.panel {
-  background: rgba(43, 43, 46, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  padding: 28px;
-  animation: fadeUp 0.6s both;
+/* === Container === */
+main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-@keyframes fadeUp {
+/* === Glass Panels === */
+.glass-panel {
+  background: var(--as-bg-panel);
+  border: 1px solid var(--as-border);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--as-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 120, 100, 0.25);
+}
+
+/* === Typography === */
+h1,
+h2,
+h3 {
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+p {
+  color: var(--as-muted);
+  line-height: 1.6;
+}
+
+/* === Buttons === */
+.btn-primary {
+  background: var(--as-accent);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 120, 110, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(255, 120, 110, 0.4);
+}
+
+.btn-ghost {
+  border: 1px solid var(--as-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--as-text);
+  border-radius: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* === Reader Button (🔈) === */
+.reader-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: all 0.25s ease;
+}
+
+.reader-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.reader-btn.active {
+  background: var(--as-accent);
+  box-shadow: 0 0 10px rgba(255, 100, 90, 0.4);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -45,92 +152,134 @@ body {
   }
 }
 
-h1, h2, h3 {
-  color: #fff;
-  margin-top: 0;
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
-button {
-  border: none;
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-weight: 600;
+/* === Form Elements === */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--as-red-light);
+  transform: scale(1.05);
   cursor: pointer;
 }
 
-.btn-primary {
-  background: var(--as-red);
-  color: #fff;
+/* === Orientation + Dashboard Backgrounds === */
+.dashboard-bg,
+.orientation-wrapper {
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(156, 28, 28, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0e0e0e 0%, #1a1a1a 100%);
 }
 
-.btn-ghost {
-  background: var(--glass);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #eee;
+/* === Footer === */
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--as-muted);
+  opacity: 0.75;
+  margin-top: 40px;
 }
 
-.progress-bar {
-  height: 8px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  overflow: hidden;
-  margin-bottom: 20px;
+/* === Visibility + Clickability Fixes === */
+.module-title,
+.module-list,
+.ack-intro,
+.module-acknowledge span {
+  color: #fdfdfd !important;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
 }
 
-.progress-fill {
-  height: 100%;
-  width: 0;
-  background: var(--as-red);
-  transition: width 0.5s ease;
+.confetti-wrapper {
+  pointer-events: none;
+  z-index: 0 !important;
 }
 
-.scrollbox {
-  max-height: 220px;
-  overflow-y: auto;
-  padding-right: 10px;
-  border-left: 3px solid var(--as-red);
-  margin-bottom: 10px;
+.module-acknowledge input[type="checkbox"] {
+  position: relative;
+  z-index: 12;
 }
 
-.scrollbox ul {
-  margin: 0;
-  padding-left: 20px;
+.module-list li:hover {
+  color: #ffbfbf;
+  text-shadow: 0 0 6px rgba(255, 150, 150, 0.25);
 }
 
-/* Slide transition animations */
-.slide-panel {
-  transition: transform 0.25s cubic-bezier(.51,1.3,.5,1), opacity 0.25s cubic-bezier(.51,1.3,.5,1);
-  will-change: transform, opacity;
+/* --- Visibility & Layer Fix --- */
+.module-title,
+.module-list,
+.ack-intro,
+.module-acknowledge,
+.module-acknowledge span,
+.module-list li,
+.text-glow,
+p,
+h2,
+h3 {
+  position: relative !important;
+  z-index: 20 !important;
+  color: #fff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  filter: none !important;
+  opacity: 1 !important;
 }
 
-.slide-in-right {
-  transform: translateX(60px);
-  opacity: 0;
-  animation: slideInRight 0.25s forwards;
+/* --- Prevent Lottie overlays from sitting above text --- */
+.module-lottie,
+.module-lottie-centered,
+.lottie-wrapper,
+.ack-lottie {
+  position: relative !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+  opacity: 0.95 !important;
 }
 
-.slide-in-left {
-  transform: translateX(-60px);
-  opacity: 0;
-  animation: slideInLeft 0.25s forwards;
+/* --- Make sure no slide-level blur affects text --- */
+.module-slide,
+.ethics-slide,
+.reporting-slide,
+.ack-slide {
+  filter: none !important;
+  backdrop-filter: none !important;
+  z-index: 10 !important;
 }
 
-.slide-out-left {
-  transform: translateX(-60px);
-  opacity: 0;
+/* === Responsive === */
+@media (max-width: 768px) {
+  main {
+    padding: 1.25rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  .btn-primary,
+  .btn-ghost {
+    width: 100%;
+    padding: 12px;
+  }
+  .reader-btn {
+    width: 38px;
+    height: 38px;
+  }
 }
 
-.slide-out-right {
-  transform: translateX(60px);
-  opacity: 0;
-}
-
-@keyframes slideInRight {
-  from { transform: translateX(60px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideInLeft {
-  from { transform: translateX(-60px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+/* === Dashboard Background Fix === */
+.dashboard-bg {
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(156, 28, 28, 0.08),
+      transparent 70%
+    ),
+    #0f0f0f;
 }

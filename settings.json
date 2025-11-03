@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+      "*.jsx": "javascriptreact",
+      "*.js": "javascriptreact"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    "prettier.jsxSingleQuote": true,
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "emmet.includeLanguages": { "javascript": "javascriptreact" }
+  }

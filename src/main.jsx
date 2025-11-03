@@ -1,11 +1,14 @@
-// /src/main.jsx
+// ✅ src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./Routes.jsx";
 import "./index.css";
-import Orientation from "./Orientation.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Orientation />
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   </React.StrictMode>
 );

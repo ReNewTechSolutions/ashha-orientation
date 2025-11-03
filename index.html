@@ -3,8 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title & Meta -->
     <title>All Services Home Healthcare Orientation</title>
+    <meta
+      name="description"
+      content="Welcome to the All Services Home Healthcare Orientation — your introduction to compassionate care and professional excellence."
+    />
+    <meta name="theme-color" content="#9C1C1C" />
+
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon192.png" />
+
+    <!-- Font Preloads -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Inline Loading Style for Cinematic Background -->
+    <style>
+      body {
+        margin: 0;
+        background: radial-gradient(
+          circle at 50% 35%,
+          rgba(156, 28, 28, 0.15) 0%,
+          rgba(20, 20, 22, 0.95) 75%
+        );
+        font-family: "Inter", sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #root {
+        width: 100%;
+        height: 100%;
+        animation: fadeIn 1.2s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

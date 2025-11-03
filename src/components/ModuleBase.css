@@ -1,0 +1,169 @@
+/* === Base Container === */
+.module-container {
+    background: radial-gradient(
+        circle at 50% 20%,
+        rgba(156, 28, 28, 0.25),
+        rgba(15, 15, 15, 0.95) 70%
+      ),
+      linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 50px 40px;
+    max-width: 900px;
+    margin: 60px auto;
+    color: #f2f2f2;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(255, 90, 95, 0.1);
+    overflow: hidden;
+  }
+  
+  /* === Fade Overlay === */
+  .module-fade-bg {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* === Title === */
+  .module-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff7a70, #9c1c1c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+    text-shadow: 0 0 16px rgba(255, 120, 100, 0.25);
+  }
+  
+  /* === Content List === */
+  .module-list {
+    list-style-type: disc;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-left: 28px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #fff;
+    opacity: 0.95;
+  }
+  
+  .module-list li {
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .module-list li:hover {
+    color: #ffbfbf;
+    text-shadow: 0 0 8px rgba(255, 120, 110, 0.25);
+  }
+  
+  /* === Buttons === */
+  .module-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 22px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 14px rgba(156, 28, 28, 0.35);
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 120, 100, 0.45);
+  }
+  
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #eee;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+  }
+  
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  /* === Acknowledgment Section === */
+  .ack-intro {
+    max-width: 700px;
+    margin: 10px auto 20px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    color: #f1f1f1;
+    text-align: center;
+  }
+  
+  .module-acknowledge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #fff;
+  }
+  
+  .module-acknowledge input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #ff7a70;
+    cursor: pointer;
+  }
+  
+  .module-acknowledge span {
+    line-height: 1.5;
+  }
+  
+  /* === Centered Lottie Wrapper === */
+  .module-lottie-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    max-width: 300px;
+    filter: drop-shadow(0 0 20px rgba(255, 100, 90, 0.25));
+  }
+  
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .module-container {
+      padding: 30px 20px;
+    }
+    .module-title {
+      font-size: 1.4rem;
+    }
+    .module-list {
+      font-size: 0.95rem;
+    }
+    .module-nav {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ack-intro {
+      font-size: 0.95rem;
+    }
+  }

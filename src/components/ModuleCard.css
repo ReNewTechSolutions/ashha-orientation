@@ -1,0 +1,218 @@
+/* === Cinematic Module Card (Final Lightweight Version) === */
+.module-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 36px 26px;
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45),
+    0 0 28px rgba(255, 90, 95, 0.2);
+  transition: all 0.4s ease;
+  isolation: isolate;
+  outline: none;
+}
+
+/* === Keyboard Focus === */
+.module-card:focus-visible {
+  outline: 2px solid #ff7a70;
+  outline-offset: 4px;
+  box-shadow: 0 0 20px rgba(255, 122, 112, 0.5);
+}
+
+/* === Ambient Accent Glow === */
+.module-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    var(--accent, rgba(255, 100, 100, 0.2)) 0%,
+    transparent 75%
+  );
+  z-index: 0;
+  opacity: 0.7;
+  transition: transform 0.6s ease, opacity 0.5s ease;
+}
+
+.module-card:hover::before {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+/* === Module Icon === */
+.module-icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.25));
+  z-index: 1;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.module-card:hover .module-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.35));
+}
+
+/* === Title & Description === */
+.module-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  z-index: 1;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 14px rgba(255, 122, 112, 0.35);
+}
+
+.module-desc {
+  font-size: 0.95rem;
+  opacity: 0.92;
+  max-width: 280px;
+  z-index: 1;
+  line-height: 1.6;
+}
+
+/* === Reader Button === */
+.reader-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.25s ease;
+}
+
+.reader-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.reader-btn.active {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  box-shadow: 0 0 12px rgba(255, 100, 90, 0.4);
+}
+
+/* === Inner Accent Glow === */
+.module-glow {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+    circle,
+    var(--accent, rgba(255, 90, 95, 0.25)) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(35px);
+  transition: all 0.5s ease;
+}
+
+.module-card:hover .module-glow {
+  opacity: 0.6;
+  transform: scale(1.2);
+}
+
+/* === Hover Elevation === */
+.module-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 45px rgba(255, 122, 112, 0.3),
+    0 0 25px rgba(255, 255, 255, 0.12);
+}
+
+/* === Completion State === */
+.module-card.completed {
+  border: 1px solid rgba(140, 255, 160, 0.35);
+  box-shadow: 0 0 25px rgba(100, 255, 150, 0.35),
+    0 0 60px rgba(100, 255, 150, 0.15);
+  animation: moduleCompletePulse 1.6s ease-out;
+}
+
+.module-card.completed .module-icon {
+  color: #a7ffb0;
+  filter: drop-shadow(0 0 14px rgba(100, 255, 150, 0.6));
+}
+
+@keyframes moduleCompletePulse {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.03);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === Completion Checkmark === */
+.module-card.completed::before {
+  content: "✔";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 1.4rem;
+  color: #a7ffb0;
+  text-shadow: 0 0 10px rgba(100, 255, 140, 0.9);
+  font-weight: 700;
+  z-index: 2;
+  animation: checkmarkPop 0.6s ease-out forwards;
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === Mobile Optimization === */
+@media (max-width: 768px) {
+  .module-card {
+    padding: 26px 18px;
+  }
+
+  .module-icon {
+    font-size: 2.3rem;
+  }
+
+  .module-title {
+    font-size: 1.2rem;
+  }
+
+  .module-desc {
+    font-size: 0.9rem;
+    max-width: 220px;
+  }
+
+  .reader-btn {
+    width: 36px;
+    height: 36px;
+  }
+}

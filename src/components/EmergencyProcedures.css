@@ -1,0 +1,184 @@
+/* === Emergency Procedures Module Styling === */
+.emergency-container {
+    background: radial-gradient(circle at 50% 20%, rgba(156, 28, 28, 0.25), rgba(15, 15, 15, 0.95) 70%),
+      linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 50px 40px;
+    max-width: 900px;
+    margin: 60px auto;
+    color: #f2f2f2;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 90, 95, 0.1);
+    overflow: hidden;
+  }
+  
+  /* === Title === */
+  .emergency-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff7a70, #9c1c1c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+    text-shadow: 0 0 16px rgba(255, 120, 100, 0.25);
+  }
+  
+  /* === Lottie === */
+  .emergency-lottie {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto 25px;
+  }
+  
+  .emergency-lottie iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+  }
+  
+  /* === Text === */
+  .emergency-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: left;
+    color: #ddd;
+    max-width: 720px;
+    margin: 0 auto 24px;
+    white-space: pre-line;
+  }
+  
+  /* === Reader Button & Title === */
+  .reader-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .reader-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .reader-btn.active {
+    background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+    box-shadow: 0 0 10px rgba(255, 120, 110, 0.4);
+  }
+  
+  /* === Training Video === */
+  .training-video {
+    width: 100%;
+    max-width: 720px;
+    margin: 25px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  }
+  
+  .training-video iframe {
+    width: 100%;
+    height: 360px;
+    border: none;
+  }
+  
+  /* === Navigation === */
+  .emergency-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+  }
+  
+  .btn-primary,
+  .btn-ghost {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 100, 90, 0.4);
+  }
+  
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* === Acknowledgment === */
+  .emergency-acknowledge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .emergency-acknowledge input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #ff7a70;
+    cursor: pointer;
+  }
+  
+  /* === Mobile === */
+  @media (max-width: 768px) {
+    .emergency-container {
+      padding: 30px 20px;
+    }
+  
+    .emergency-title {
+      font-size: 1.5rem;
+    }
+  
+    .emergency-text {
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+  
+    .training-video iframe {
+      height: 220px;
+    }
+  
+    .emergency-nav {
+      flex-direction: column;
+      gap: 14px;
+    }
+  
+    .btn-primary,
+    .btn-ghost {
+      width: 100%;
+    }
+  }

@@ -2,20 +2,22 @@
   "name": "ashha-orientation",
   "version": "1.0.0",
   "private": true,
-"scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "postinstall": "npm install vite @vitejs/plugin-react --save-dev"
-},
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "postinstall": "npm install vite @vitejs/plugin-react --save-dev"
+  },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.17.5",
     "framer-motion": "^11.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^5.4.21"
+    "vite": "^7.1.12"
   }
 }
-

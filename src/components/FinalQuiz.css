@@ -1,0 +1,250 @@
+/* === Final Quiz Container === */
+.quiz-wrapper {
+  background: radial-gradient(
+      circle at 40% 30%,
+      rgba(156, 28, 28, 0.15),
+      rgba(15, 15, 15, 0.95)
+    ),
+    linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  color: #fff;
+  padding: 60px 6%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === Header === */
+.quiz-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.quiz-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+}
+
+.quiz-lottie-header {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 15px rgba(255, 100, 90, 0.4));
+}
+
+/* === Reader Button === */
+.reader-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.reader-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.reader-btn.active {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  box-shadow: 0 0 12px rgba(255, 100, 90, 0.4);
+}
+
+/* === Progress Bar === */
+.quiz-progress {
+  width: 100%;
+  max-width: 800px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70, #ffb6a3);
+  background-size: 200% 100%;
+  animation: gradientFlow 4s ease infinite;
+  transition: width 0.5s ease;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.quiz-progress-text {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* === Quiz Questions === */
+.quiz-form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.quiz-question {
+  margin-bottom: 2rem;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.quiz-question.active {
+  box-shadow: 0 0 15px rgba(255, 100, 90, 0.3);
+}
+
+.quiz-question p {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.quiz-option {
+  display: block;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.quiz-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.quiz-option input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #ff7a70;
+  transform: scale(1.1);
+}
+
+/* === Action Buttons === */
+.quiz-action {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(156, 28, 28, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 120, 100, 0.45);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* === Feedback Messages === */
+.quiz-feedback {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1rem;
+}
+
+.quiz-feedback.success {
+  color: #a7ffb0;
+  text-shadow: 0 0 10px rgba(100, 255, 140, 0.5);
+}
+
+.quiz-feedback.error {
+  color: #ffb6a3;
+  text-shadow: 0 0 10px rgba(255, 120, 100, 0.4);
+}
+
+/* === Celebration Animation === */
+.quiz-celebration {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1rem;
+}
+
+.celebration-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 112, 0.4), transparent 70%);
+  filter: blur(20px);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.quiz-complete {
+  font-size: 1.05rem;
+  color: #d7ffe2;
+  text-shadow: 0 0 8px rgba(100, 255, 140, 0.3);
+  margin-top: 1.5rem;
+  line-height: 1.6;
+}
+
+/* === Incorrect Highlight === */
+.quiz-question.incorrect {
+  border: 1px solid rgba(255, 120, 100, 0.4);
+  background: rgba(255, 120, 100, 0.08);
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .quiz-wrapper {
+    padding: 40px 20px;
+  }
+
+  .quiz-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .quiz-question {
+    padding: 16px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+  }
+}

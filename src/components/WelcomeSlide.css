@@ -1,0 +1,172 @@
+/* === Welcome Slide Layout === */
+.welcome-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 60px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+/* === Card === */
+.welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 780px;
+  background: rgba(25, 25, 25, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+/* === Lottie === */
+.welcome-lottie {
+  width: 260px;
+  height: 260px;
+  margin: 0 auto 25px;
+}
+
+.welcome-lottie canvas {
+  border-radius: 16px;
+}
+
+/* === Title + Reader === */
+.reader-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.welcome-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(255, 100, 90, 0.35);
+}
+
+/* === Text === */
+.welcome-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #ddd;
+  max-width: 650px;
+  margin: 0 auto 20px;
+  opacity: 0.95;
+}
+
+/* === Reader Button === */
+.reader-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reader-btn.active {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  box-shadow: 0 0 10px rgba(255, 120, 110, 0.4);
+}
+
+/* === Buttons === */
+.welcome-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-ghost,
+.btn-return {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Red gradient main */
+.btn-primary {
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 100, 90, 0.4);
+}
+
+/* Disabled state */
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Ghost + Return styles */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-return {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.btn-return:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 28px 20px;
+  }
+
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .welcome-text {
+    font-size: 0.98rem;
+  }
+
+  .welcome-nav {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .btn-primary,
+  .btn-ghost,
+  .btn-return {
+    width: 100%;
+  }
+}
