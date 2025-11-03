@@ -40,7 +40,6 @@
   text-align: left;
   position: relative;
   z-index: 2;
-  pointer-events: auto;
 }
 
 .progress-header {
@@ -72,7 +71,6 @@
   border-radius: 18px;
   position: relative;
   z-index: 2;
-  pointer-events: auto;
 }
 
 .dashboard-modules h2 {
@@ -85,9 +83,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
 }
 
 .module-card {
@@ -97,9 +92,6 @@
   padding: 28px 20px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
-  position: relative;
-  z-index: 3;
-  pointer-events: auto;
 }
 
 .module-card:hover {
@@ -138,14 +130,22 @@
   box-shadow: 0 0 16px rgba(140, 255, 160, 0.2);
 }
 
-/* ✅ Ensure buttons always receive clicks */
 .module-card button {
   width: 100%;
   margin-top: 10px;
-  position: relative;
-  z-index: 5;
-  pointer-events: auto;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #9c1c1c, #ff7a70);
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.module-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 100, 90, 0.4);
 }
 
 /* === Footer === */
@@ -154,8 +154,6 @@ footer {
   color: #aaa;
   margin-top: 40px;
   opacity: 0.8;
-  position: relative;
-  z-index: 1;
 }
 
 /* === Mobile === */
@@ -171,22 +169,4 @@ footer {
   .modules-grid {
     grid-template-columns: 1fr;
   }
-}
-
-.speech-toggle {
-  margin-top: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 8px 14px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: #fff;
-}
-
-.speech-toggle input {
-  accent-color: #ff7a70;
-  transform: scale(1.2);
-  cursor: pointer;
 }

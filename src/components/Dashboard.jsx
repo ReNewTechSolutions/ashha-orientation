@@ -1,14 +1,11 @@
-// ✅ src/Dashboard.jsx
+// ✅ src/components/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import useSpeechReader from "../hooks/useSpeechReader";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  console.log("✅ Dashboard component rendered");
   const navigate = useNavigate();
-  const { autoReadEnabled, toggleAutoRead } = useSpeechReader();
 
   const [modules, setModules] = useState([
     {
@@ -65,8 +62,6 @@ export default function Dashboard() {
 
   // ✅ Navigation handler
   const handleStart = (key) => {
-    console.log("🧭 handleStart called with key:", key);
-
     try {
       switch (key) {
         case "orientation":
@@ -76,7 +71,7 @@ export default function Dashboard() {
           navigate("/orientation/ethics");
           break;
         case "annual":
-          navigate("/quiz");
+          navigate("/orientation/final-quiz");
           break;
         case "apc":
           navigate("/orientation/policy");
@@ -111,18 +106,6 @@ export default function Dashboard() {
           Empowering caregivers through continuous learning and compassionate
           excellence.
         </p>
-
-        {/* === Narration Toggle === */}
-        <div className="speech-toggle">
-          <label>
-            <input
-              type="checkbox"
-              checked={autoReadEnabled}
-              onChange={toggleAutoRead}
-            />
-            Auto Narration {autoReadEnabled ? "On" : "Off"}
-          </label>
-        </div>
       </motion.header>
 
       {/* === Progress Summary === */}
