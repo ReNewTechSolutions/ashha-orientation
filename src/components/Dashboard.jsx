@@ -1,4 +1,3 @@
-// ✅ src/components/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +83,7 @@ export default function Dashboard() {
     }
   };
 
-  // ✅ Background setup
+  // ✅ Add dark background
   useEffect(() => {
     document.body.classList.add("dashboard-bg");
     return () => document.body.classList.remove("dashboard-bg");
